@@ -1,12 +1,24 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import TaskPage from "./pages/TaskPage";
 import CompletedPage from "./pages/CompletedPage";
 import Navbar from "./components/Navbar";
 
-const App = () => {
+const GitHubCallback = () => {
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        // Simulate processing OAuth response and then redirect
+        setTimeout(() => {
+            navigate("/tasks");
+        }, 500); // Short delay to allow the authentication process to complete
+    }, [navigate]);
+
+    return <div>Logging in...</div>;
+};
+
+const App = () => {
     return (
         <Router>
             <Navbar />
@@ -15,6 +27,7 @@ const App = () => {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/tasks" element={<TaskPage />} />
                 <Route path="/completed" element={<CompletedPage />} />
+                <Route path="/auth/github/callback" element={<GitHubCallback />} />
                 {/* 404 Catch-All */}
                 <Route path="*" element={<div>404 - Page Not Found</div>} />
             </Routes>
