@@ -5,7 +5,8 @@ import { Navbar, Nav, Container, Button } from "react-bootstrap";
 const AppNavbar = () => {
     const handleLogout = async () => {
         try {
-            const response = await fetch("http://localhost:3000/logout", {
+            //const response = await fetch("http://localhost:3000/logout", {
+            const response = await fetch("https://a4-moetko.vercel.app/logout", {
                 method: "POST",
                 credentials: "include",
                 headers: {

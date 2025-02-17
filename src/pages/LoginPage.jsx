@@ -3,7 +3,7 @@ import React from "react";
 const LoginPage = () => {
     const handleLogin = () => {
         // redirect to GitHub OAuth
-        window.location.href = "http://localhost:3000/auth/github";
+        window.location.href = "https://a4-moetko.vercel.app/auth/github";
     };
 
     return (

@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/auth": {
-        target: "http://localhost:3000",
+        target: "https://a4-moetko.vercel.app",
         changeOrigin: true,
       },
     },

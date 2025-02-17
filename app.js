@@ -17,12 +17,23 @@ const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
 // enable CORS for development
-//if (process.env.NODE_ENV === "development") {
+/*
     app.use(cors({
         origin: "http://localhost:5173",
         credentials: true,
     }));
-//}
+//}*/
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://a4-moetko.vercel.app",
+];
+
+app.use(
+    cors({
+        origin: allowedOrigins,
+        credentials: true,
+    })
+);
 
 app.use(express.json());
 
@@ -43,7 +54,8 @@ app.use(
         saveUninitialized: false,
         cookie: {
             httpOnly: true,
-            secure: false, // set to `true` in production with HTTPS
+            //secure: false, // set to `true` in production with HTTPS
+            secure: process.env.NODE_ENV === "production",
             sameSite: "lax",
         },
     })
@@ -53,12 +65,17 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+const callbackURL =
+    process.env.NODE_ENV === "production"
+        ? "https://a4-moetko.vercel.app/auth/github/callback"
+        : "http://localhost:3000/auth/github/callback";
+
 passport.use(
     new GitHubStrategy(
         {
             clientID: GITHUB_CLIENT_ID,
             clientSecret: GITHUB_CLIENT_SECRET,
-            callbackURL: "http://localhost:3000/auth/github/callback",
+            callbackURL: callbackURL,
         },
         async (accessToken, refreshToken, profile, done) => {
             const user = {
@@ -106,16 +123,29 @@ async function run() {
             console.log("Redirecting to GitHub OAuth...");
             res.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user:email&prompt=login`);
         });
+/*
+        app.get(
+            "/auth/github/callback",
+            passport.authenticate("github", { failureRedirect: "/login" }),
+            (req, res) => {
+                console.log("GitHub Authentication Successful:", req.user);
+                res.redirect("http://localhost:5173/tasks"); // redirect to frontend tasks page
+            }
+        );
+*/
+        const frontendURL =
+            process.env.NODE_ENV === "production"
+                ? "https://a4-moetko.vercel.app"
+                : "http://localhost:5173";
 
         app.get(
             "/auth/github/callback",
             passport.authenticate("github", { failureRedirect: "/login" }),
             (req, res) => {
-                console.log("✅ GitHub Authentication Successful:", req.user);
-                res.redirect("http://localhost:5173/tasks"); // redirect to frontend tasks page
+                console.log("GitHub Authentication Successful:", req.user);
+                res.redirect(`${frontendURL}/tasks`);
             }
         );
-
 
         app.post("/logout", (req, res, next) => {
             req.logout((err) => {
@@ -124,7 +154,7 @@ async function run() {
                 }
                 req.session.destroy(() => {
                     res.clearCookie("connect.sid", { path: "/" }); // clear session cookie
-                    console.log("✅ User logged out, session destroyed.");
+                    console.log(" User logged out, session destroyed.");
                     res.status(200).json({ message: "Logged out successfully" });
                 });
             });
