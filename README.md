@@ -1,7 +1,7 @@
 ## To-Do List ##
 ##NOTE##: The To-Do list works locally, but when deploying on Vercel, there are routing issues that I can't seem to figure out how to fix. I screen recorded the To-Do list which works on my computer.
 Recording of To-Do list:  
-[Download the video](https://github.com/moet-ko/a4-moetko/raw/main/Recording-of-To-Do-list.mov)
+[Download the video](https://github.com/moet-ko/a4-moetko/raw/main/to-do-list.mov)
 Moet O'Donnell: https://a4-moetko.vercel.app  
 
 
