@@ -11,10 +11,11 @@
     }
   ],
   "routes": [
-    { "src": "/auth/github", "dest": "app.js" },
-    { "src": "/auth/github/callback", "dest": "app.js" },
-    { "src": "/api/(.*)", "dest": "app.js" },
+    { "src": "/auth/github", "dest": "/app.js" },
+    { "src": "/auth/github/callback", "dest": "/app.js" },
+    { "src": "/api/(.*)", "dest": "/app.js" },
     { "src": "/assets/(.*)", "dest": "/dist/assets/$1" },
+    { "src": "/(.*)\\.js", "headers": { "Content-Type": "application/javascript" }, "dest": "/dist/$1.js" },
     { "src": "/(.*)", "dest": "/dist/index.html" }
   ]
 }
