@@ -6,6 +6,7 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "app.js" },
+    { "src": "/auth/(.*)", "dest": "app.js" },
     { "src": "/assets/(.*)", "dest": "/dist/assets/$1" },
     { "src": "/(.*)", "dest": "/dist/index.html" }
   ]
