@@ -5,20 +5,23 @@ import TaskPage from "./pages/TaskPage";
 import CompletedPage from "./pages/CompletedPage";
 import Navbar from "./components/Navbar";
 
+
 const GitHubCallback = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Simulate processing OAuth response and then redirect
+        console.log("GitHub OAuth Callback triggered!");
         setTimeout(() => {
+            console.log("Redirecting to /tasks...");
             navigate("/tasks");
-        }, 500); // Short delay to allow the authentication process to complete
+        }, 500);
     }, [navigate]);
 
     return <div>Logging in...</div>;
 };
 
 const App = () => {
+
     return (
         <Router>
             <Navbar />
