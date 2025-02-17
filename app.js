@@ -122,8 +122,19 @@ async function run() {
 
         app.get("/auth/github", (req, res) => {
             console.log("Redirecting to GitHub OAuth...");
-            res.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user:email&prompt=login`);
+            res.writeHead(302, {
+                Location: `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user:email&prompt=login`
+            });
+            res.end();
         });
+
+        /*
+        app.get("/auth/github", (req, res) => {
+            console.log("Redirecting to GitHub OAuth...");
+            res.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user:email&prompt=login`);
+        }); testing redirect 1:50
+        */
+
         /*
                 app.get(
                     "/auth/github/callback",
