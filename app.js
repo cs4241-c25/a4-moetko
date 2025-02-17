@@ -132,7 +132,7 @@ async function run() {
         });*/
 
 
-
+        //uncommented out
         app.get("/auth/github", (req, res) => {
             console.log("Redirecting to GitHub OAuth...");
             res.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user:email&prompt=login`);
