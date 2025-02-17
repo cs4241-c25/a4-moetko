@@ -5,11 +5,14 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
+      "/api": {
+        target: "http://localhost:3000", // Local development proxy
+        changeOrigin: true,
+      },
       "/auth": {
-        target: "https://a4-moetko.vercel.app",
+        target: "http://localhost:3000",
         changeOrigin: true,
       },
     },
-    historyApiFallback: true,
   },
 });
