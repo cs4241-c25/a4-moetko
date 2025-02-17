@@ -1,3 +1,4 @@
+
 import express from "express";
 import fs from "fs";
 import mime from "mime";
@@ -123,16 +124,16 @@ async function run() {
             console.log("Redirecting to GitHub OAuth...");
             res.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user:email&prompt=login`);
         });
-/*
-        app.get(
-            "/auth/github/callback",
-            passport.authenticate("github", { failureRedirect: "/login" }),
-            (req, res) => {
-                console.log("GitHub Authentication Successful:", req.user);
-                res.redirect("http://localhost:5173/tasks"); // redirect to frontend tasks page
-            }
-        );
-*/
+        /*
+                app.get(
+                    "/auth/github/callback",
+                    passport.authenticate("github", { failureRedirect: "/login" }),
+                    (req, res) => {
+                        console.log("GitHub Authentication Successful:", req.user);
+                        res.redirect("http://localhost:5173/tasks"); // redirect to frontend tasks page
+                    }
+                );
+        */
         const frontendURL =
             process.env.NODE_ENV === "production"
                 ? "https://a4-moetko.vercel.app"
