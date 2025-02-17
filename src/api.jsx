@@ -1,6 +1,6 @@
 import axios from "axios";
 
-//const  = "http://localhost:3000";
+//const API_BASE_URL = "http://localhost:3000";
 const API_BASE_URL = "https://a4-moetko.vercel.app";
 // configure axios to include cookies in all requests
 axios.defaults.baseURL = API_BASE_URL;

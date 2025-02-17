@@ -120,23 +120,24 @@ async function run() {
         console.log("Connected to MongoDB!");
         collection = dbconnect.db("taskManager").collection("tasks");
 
+        /*
         app.get("/auth/github", (req, res) => {
             console.log("Redirecting to GitHub OAuth...");
             res.set("Cache-Control", "no-store"); // prevents caching
             res.redirect(
                 `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user:email&prompt=login`
-            );
-        });
+            ); idk if this is working 2:06
+        });*/
 
 
-        /*
+/*
         app.get("/auth/github", (req, res) => {
             console.log("Redirecting to GitHub OAuth...");
             res.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user:email&prompt=login`);
-        }); testing redirect 1:50
-        */
+        }); */
 
-        /*
+
+/*
                 app.get(
                     "/auth/github/callback",
                     passport.authenticate("github", { failureRedirect: "/login" }),
@@ -144,8 +145,8 @@ async function run() {
                         console.log("GitHub Authentication Successful:", req.user);
                         res.redirect("http://localhost:5173/tasks"); // redirect to frontend tasks page
                     }
-                );
-        */
+                );*/
+
         const frontendURL =
             process.env.NODE_ENV === "production"
                 ? "https://a4-moetko.vercel.app"

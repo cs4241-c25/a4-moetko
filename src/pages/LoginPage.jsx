@@ -4,6 +4,9 @@ const LoginPage = () => {
     const handleLogin = () => {
         // redirect to GitHub OAuth
         window.location.href = "https://a4-moetko.vercel.app/auth/github";
+            //"http://localhost:3000/auth/github/callback"
+
+
     };
 
     return (
