@@ -57,8 +57,8 @@ app.use(
         saveUninitialized: false,
         cookie: {
             httpOnly: true,
-            //secure: false, // set to `true` in production with HTTPS
-            secure: process.env.NODE_ENV === "production",
+            secure: false, // set to `true` in production with HTTPS
+            //secure: process.env.NODE_ENV === "production",
             sameSite: "lax",
         },
     })
@@ -122,14 +122,6 @@ async function run() {
         console.log("Connected to MongoDB!");
         collection = dbconnect.db("taskManager").collection("tasks");
 
-        /*
-        app.get("/auth/github", (req, res) => {
-            console.log("Redirecting to GitHub OAuth...");
-            res.set("Cache-Control", "no-store"); // prevents caching
-            res.redirect(
-                `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user:email&prompt=login`
-            ); idk if this is working 2:06
-        });*/
 
 
         //uncommented out
@@ -138,16 +130,6 @@ async function run() {
             res.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user:email&prompt=login`);
         });
 
-
-/*
-                app.get(
-                    "/auth/github/callback",
-                    passport.authenticate("github", { failureRedirect: "/login" }),
-                    (req, res) => {
-                        console.log("GitHub Authentication Successful:", req.user);
-                        res.redirect("http://localhost:5173/tasks"); // redirect to frontend tasks page
-                    }
-                );*/
 
         const frontendURL =
             process.env.NODE_ENV === "production"
@@ -170,6 +152,7 @@ async function run() {
                 }
                 req.session.destroy(() => {
                     res.clearCookie("connect.sid", { path: "/" }); // clear session cookie
+                    req.user = null; // Ensure req.user is removed
                     console.log(" User logged out, session destroyed.");
                     res.status(200).json({ message: "Logged out successfully" });
                 });
@@ -307,14 +290,7 @@ async function run() {
                 res.status(500).json({ message: "Error deleting task" });
             }
         });
-/*
-        // serve React static files (production)
-        if (process.env.NODE_ENV === "production") {
-            app.use(express.static(path.join(__dirname, "dist")));
-            app.get("*", (req, res) => {
-                res.sendFile(path.join(__dirname, "dist", "index.html"));
-            });
-        }*/
+
 
     } catch (err) {
         console.error("Error connecting to MongoDB:", err);
@@ -339,7 +315,6 @@ if (process.env.NODE_ENV === "production") {
         res.sendFile(path.join(__dirname, "dist", "index.html"));
     });
 }
-
 
 
 app.listen(port, () => {
