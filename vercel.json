@@ -2,14 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/app.js",
+      "src": "app.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "dist/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
-    { "src": "/auth/github", "dest": "/api/app" },
-    { "src": "/auth/github/callback", "dest": "/api/app" },
-    { "src": "/api/(.*)", "dest": "/api/app" },
+    { "src": "/auth/github", "dest": "/app.js" },
+    { "src": "/auth/github/callback", "dest": "/app.js" },
+    { "src": "/api/(.*)", "dest": "/app.js" },
     { "src": "/assets/(.*)", "dest": "/dist/assets/$1" },
     { "src": "/(.*)\\.js", "headers": { "Content-Type": "application/javascript" }, "dest": "/dist/$1.js" },
     { "src": "/(.*)", "dest": "/dist/index.html" }
