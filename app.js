@@ -57,8 +57,8 @@ app.use(
         saveUninitialized: false,
         cookie: {
             httpOnly: true,
-            //secure: false, // set to `true` in production with HTTPS
-            secure: process.env.NODE_ENV === "production",
+            secure: false, // set to `true` in production with HTTPS
+            //secure: process.env.NODE_ENV === "production",
             sameSite: "lax",
         },
     })
@@ -102,7 +102,7 @@ passport.deserializeUser((user, done) => {
     console.log("Deserializing user:", user); // log user being deserialized
     done(null, user);
 });
-app.get("/api/auth/status", (req, res) => {
+app.get("/auth/status", (req, res) => {
     res.json({ isAuthenticated: req.isAuthenticated(), user: req.user });
 });
 
@@ -113,7 +113,7 @@ const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.redirect("/api/auth/github"); // redirect to GitHub authentication if not logged in
+    res.redirect("/auth/github"); // redirect to GitHub authentication if not logged in
 };
 
 async function run() {
@@ -125,7 +125,7 @@ async function run() {
 
 
         //uncommented out
-        app.get("/api/auth/github", (req, res) => {
+        app.get("/auth/github", (req, res) => {
             console.log("Redirecting to GitHub OAuth...");
             res.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user:email&prompt=login`);
         });
@@ -137,7 +137,7 @@ async function run() {
                 : "http://localhost:5173";
 
         app.get(
-            "/api/auth/github/callback",
+            "/auth/github/callback",
             passport.authenticate("github", { failureRedirect: "/login" }),
             (req, res) => {
                 console.log("GitHub Authentication Successful:", req.user);
