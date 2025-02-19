@@ -5,6 +5,7 @@ Recording of To-Do list:
 **Download the video and View Raw**: (https://github.com/cs4241-c25/a4-moetko/blob/main/to-do-list.mov)
 OR
 **View video** https://youtu.be/auW-2T0aT10
+
 **Running the application**
 1. Start the development server:
    ```bash
