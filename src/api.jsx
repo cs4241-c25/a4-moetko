@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:3000";
-//const API_BASE_URL = "https://a4-moetko.vercel.app";
+//const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "https://a4-moetko.vercel.app";
 // configure axios to include cookies in all requests
 axios.defaults.baseURL = API_BASE_URL;
 axios.defaults.withCredentials = true;
@@ -9,8 +9,8 @@ axios.defaults.withCredentials = true;
 // fetch tasks
 export const fetchTasks = async () => {
     try {
-        const response = await fetch("http://localhost:3000/tasks", {
-        //const response = await fetch("https://a4-moetko.vercel.app/tasks", {
+        //const response = await fetch("http://localhost:3000/tasks", {
+        const response = await fetch("https://a4-moetko.vercel.app/tasks", {
             credentials: "include", // check cookies are sent
         });
         console.log("Fetch response:", response); // Debug log
